@@ -18,13 +18,13 @@ public class InstagraoController {
     @Autowired
     private InstagraoRepository _instagraoRepository;
 
-    @RequestMapping(value= "/lista", method= RequestMethod.GET)
+    @RequestMapping(value= "/posts", method= RequestMethod.GET)
     public List<Instagrao> Get(){
 
-        return _instagraoRepository.findAll();
+        return (List<Instagrao>) _instagraoRepository.findAll();
     }
 
-    @RequestMapping(value= "/lista/{id}", method= RequestMethod.GET, produces="application/json")
+    @RequestMapping(value= "/posts/{id}", method= RequestMethod.GET, produces="application/json")
     public ResponseEntity<Instagrao>GetById(@PathVariable(value = "id")long id)
     {
         Optional<Instagrao> instagrao = _instagraoRepository.findById(id);
@@ -34,21 +34,21 @@ public class InstagraoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value="/lista", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+    @RequestMapping(value="/posts", method=RequestMethod.POST, produces="application/json", consumes="application/json")
     public Instagrao Post(@Valid @RequestBody Instagrao instagrao)
     {
         return _instagraoRepository.save(instagrao);
     }
 
 
-   @RequestMapping(value = "/likes/{id}", method =RequestMethod.PUT, produces="application/json", consumes="application/json")
+   @RequestMapping(value = "/likes/{id}", method =RequestMethod.PUT)
     public ResponseEntity<Instagrao> Put(@PathVariable(value = "id") long id)
     {
         Optional<Instagrao> oldInstagrao = _instagraoRepository.findById(id);
         if(oldInstagrao.isPresent()){
 
             Instagrao instagraoz = oldInstagrao.get();
-           instagraoz.setLikes(instagraoz.getLikes()+1);
+           instagraoz.newLike();
             _instagraoRepository.save(instagraoz);
             return new ResponseEntity<Instagrao>(instagraoz, HttpStatus.OK);
         }

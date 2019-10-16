@@ -2,6 +2,8 @@ package com.ServerSpring.Instagrao.models;
 
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 
@@ -17,8 +19,8 @@ public class Instagrao {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    long id;
-    //CreatedDate date;
+    @CreatedDate
+    private long id;
     private String author;
     private String title;
     private String description;
@@ -72,8 +74,10 @@ public class Instagrao {
 
     public void setLikes(Integer likes) {
         this.likes = likes;
+    }
 
-
+    public void newLike(){
+        this.likes++;
     }
 
     public String getImage() {
