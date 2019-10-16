@@ -22,10 +22,9 @@ public class Instagrao {
     @CreatedDate
     private long id;
     private String author;
-    private String title;
     private String description;
     private String local;
-    private Integer likes;
+    private Integer likes = 0;
     private String image;
 
     public long getId() {
@@ -44,13 +43,7 @@ public class Instagrao {
         this.author = author;
     }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getDescription() {
         return description;
